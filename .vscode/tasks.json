@@ -1,0 +1,36 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Sync Files to Target",
+            "type": "shell",
+            "command": "rsync -avz --exclude='.git*' --exclude='.vscode*' ${workspaceFolder}/ root@imx93evk:/root/esp32-hosted-ng-spidev/",
+            "presentation": {
+                "reveal": "silent",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Start Remote Debugpy",
+            "type": "shell",
+            "command": "ssh root@imx93evk 'cd /root/esp32-hosted-ng-spidev && python3 -m debugpy --listen 0.0.0.0:5678 --wait-for-client esp32-spi.py'",
+            "isBackground": true,
+            "dependsOn": "Sync Files to Target",
+            "problemMatcher": {
+                "pattern": [
+                    {
+                        "regexp": ".",
+                        "file": 1,
+                        "location": 2,
+                        "message": 3
+                    }
+                ],
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^.*",
+                    "endsPattern": "^.*(serving|listening|waiting).*"
+                }
+            }
+        }
+    ]
+}

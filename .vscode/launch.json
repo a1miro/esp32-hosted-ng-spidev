@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Attach to iMX93",
+            "type": "debugpy",
+            "request": "attach",
+            "connect": {
+                "host": "imx93evk",
+                "port": 5678
+            },
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}",
+                    "remoteRoot": "/root/esp32-hosted-ng-spidev"
+                }
+            ],
+            "preLaunchTask": "Start Remote Debugpy"
+        }
+    ]
+}
